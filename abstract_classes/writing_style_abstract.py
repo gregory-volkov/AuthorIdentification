@@ -13,8 +13,9 @@ class WSVectorizer(object):
         raise NotImplementedError
 
     # Get docs belonging to the author
-    def fit_docs(self, docs):
+    def fit_single_author_docs(self, docs):
         raise NotImplementedError
 
+    # Returns names of known authors
     def get_authors(self):
         return self.authors

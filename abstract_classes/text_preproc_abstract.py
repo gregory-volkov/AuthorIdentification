@@ -3,14 +3,17 @@ from my_utils import composition
 
 class TextPreprocessingItem(object):
 
-    # Mapping str -> str
-    @staticmethod
-    def filter(self, text):
+    # Mapping (str -> str) or (token_list -> token_list) or (str -> tokens)
+    def mapping(self, text):
         raise NotImplementedError
 
 
-class TextPreprocessing(TextPreprocessingItem):
-    # Represents a composition of TextPreprocessingItem's
+# Represents a composition of TextPreprocessingItem's
+class TextPreprocessing(object):
 
-    def __init__(self, *prepr_items):
-        self.filter = composition(*(item.filter for item in prepr_items))
+    prep_items = None
+    mapping = None
+
+    def __set_mapping__(self):
+        self.prep_items = reversed(self.prep_items)
+        self.mapping = composition(*(item.mapping for item in self.prep_items))
