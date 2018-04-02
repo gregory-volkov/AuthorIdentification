@@ -14,7 +14,7 @@ class SWLPrep(TextPreprocessing):
                 PrepLowerCase(),
                 Tokenizer(word_tokenize),
                 PrepRemoveStopWords(lang=lang),
-                FilterByRegex(only_letters_pattern)
+                FilterByRegex(only_letters_pattern(lang=lang))
             ]
         except KeyError:
             print("Couldn't find letters for {} language in constants.py".format(lang))

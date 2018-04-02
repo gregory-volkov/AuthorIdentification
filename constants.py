@@ -5,4 +5,9 @@ low_letters = {
     'russian': 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
 }
 
-only_letters_pattern = r'^[\w]+$'
+
+def only_letters_pattern(lang='english'):
+    try:
+        return '^[' + low_letters[lang] + ']+$'
+    except KeyError:
+        print("Couldn't find {} language in only_letters_pattern".format(lang))
