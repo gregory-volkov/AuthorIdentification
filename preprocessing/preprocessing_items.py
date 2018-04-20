@@ -1,7 +1,7 @@
 from nltk.corpus import stopwords
 import re
-from abstract_classes.text_preproc_abstract import TextPreprocessingItem
-from constants import punctuation, low_letters
+from abstract_classes.text_prep import TextPreprocessingItem
+from constants import punctuation
 
 
 # Makes string lowercase
