@@ -4,15 +4,17 @@ import numpy as np
 from abstract_classes.feature_vectorizer import FeatureVectorizer
 from constants import low_letters
 from utils import max_columns
+from sklearn.preprocessing import normalize
 
 
 class NGram(FeatureVectorizer):
 
-    def __init__(self, n, amt=None, lang='english'):
+    def __init__(self, n, amt=None, lang='english', is_normalize=False):
         self.n = n
         self.lang = lang
         self.__init_ngrams__()
         self.amt = amt
+        self.is_normalize = is_normalize
 
     def __init_ngrams__(self):
         letters = low_letters[self.lang]
@@ -38,4 +40,8 @@ class NGram(FeatureVectorizer):
 
             res_m[i, :] = list(counter.values())
 
-        return max_columns(res_m, self.amt) if self.amt else res_m
+        res_m = max_columns(res_m, self.amt) if self.amt else res_m
+        if self.is_normalize:
+            return normalize(res_m)
+        else:
+            return res_m
