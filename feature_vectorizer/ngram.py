@@ -9,14 +9,14 @@ from sklearn.preprocessing import normalize
 
 class NGram(FeatureVectorizer):
 
-    def __init__(self, n, amt=None, lang='english', is_normalize=False):
+    def __init__(self, n, amt=None, lang='english', is_norm=False):
         self.n = n
         self.lang = lang
-        self.__init_ngrams__()
+        self.__init_ngrams()
         self.amt = amt
-        self.is_normalize = is_normalize
+        self.is_norm = is_norm
 
-    def __init_ngrams__(self):
+    def __init_ngrams(self):
         letters = low_letters[self.lang]
         self.ngrams = list(map(''.join, product(letters, repeat=self.n)))
         self.gram_number = len(low_letters[self.lang]) ** self.n
@@ -41,7 +41,7 @@ class NGram(FeatureVectorizer):
             res_m[i, :] = list(counter.values())
 
         res_m = max_columns(res_m, self.amt) if self.amt else res_m
-        if self.is_normalize:
+        if self.is_norm:
             return normalize(res_m)
         else:
             return res_m
