@@ -17,7 +17,3 @@ class WSVectorizer(object):
     # Get docs for clustering (docs is a dict doc_name -> text)
     def cluster_docs(self, docs, k):
         raise NotImplementedError
-
-    # Returns names of known authors
-    def get_doc_names(self):
-        return self.doc_names

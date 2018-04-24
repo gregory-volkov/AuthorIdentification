@@ -17,4 +17,4 @@ class OnlyLetters(TextPreprocessing):
             ]
         except KeyError:
             print("Couldn't find letters for {} language in constants.py".format(lang))
-        self.__set_mapping__()
+        self.construct_mapping()

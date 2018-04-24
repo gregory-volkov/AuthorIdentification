@@ -14,6 +14,6 @@ class TextPreprocessing(object):
     prep_items = None
     mapping = None
 
-    def __set_mapping__(self):
+    def construct_mapping(self):
         self.prep_items = reversed(self.prep_items)
         self.mapping = composition(*(item.mapping for item in self.prep_items))

@@ -1,4 +1,3 @@
-from sklearn.metrics import adjusted_rand_score
 
 
 class Test(object):
