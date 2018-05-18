@@ -66,7 +66,6 @@ class PTHG(WSVectorizer):
     def __dis_eval(self):
         chunk_number = len(self.vectorized_chunks)
         self.dis_cache = np.empty((chunk_number, chunk_number), dtype=np.float)
-
         # It is proposed, that Dis function is commutative
         for i in range(chunk_number):
             for j in range(i, chunk_number):
@@ -158,18 +157,20 @@ class PTHG(WSVectorizer):
             self.L = l
             acc = 0
             for i in range(self.iter_number):
+                print(i)
                 set_id_1 = choice(set_id_range)
                 set_id_2 = choice(set_id_range)
                 expected_clusters = [set_id_1, set_id_2]
                 doc1 = choice(docs[set_id_1])
                 doc2 = choice(docs[set_id_2])
-                self.cluster_docs([doc1, doc2], k=2)
+                self.cluster_docs([doc1, doc2], k=2)              
                 acc += adjusted_rand_score(expected_clusters, self.clustered_docs)
             mean_dict[(t, l)] = acc / self.iter_number
         filtered_dict = dict(filter(lambda x: x[1] > self.crand, mean_dict.items()))
         res_l = min(filtered_dict, key=lambda x: x[1])[1]
         res_t = min(filter(lambda x: x[1] == res_l, filtered_dict), key=lambda x: x[0])[0]
         self.T, self.L = res_t, res_l
+        print(mean_dict)
         print('chosen parameters: T = {}, L = {}'.format(self.T, self.L))
 
     # Dividing docs into chunks and saving result in self.D

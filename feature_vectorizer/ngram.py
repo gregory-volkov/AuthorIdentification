@@ -22,8 +22,8 @@ class NGram(FeatureVectorizer):
         self.gram_number = len(low_letters[self.lang]) ** self.n
 
     def doc2vec(self, texts):
-        texts = list(texts)
-        res_m = np.zeros((len(texts), self.gram_number), dtype=np.int32)
+        texts = list(map(''.join, texts))
+        res_m = np.zeros((len(texts), self.gram_number), dtype=np.uint16)
         counter = OrderedDict()
 
         for i, text in enumerate(texts):
@@ -41,7 +41,9 @@ class NGram(FeatureVectorizer):
             res_m[i, :] = list(counter.values())
 
         res_m = max_columns(res_m, self.amt) if self.amt else res_m
+
         if self.is_norm:
-            return normalize(res_m)
-        else:
-            return res_m
+            res_m = res_m.astype(np.float)
+            res_m = normalize(res_m, axis=1)
+
+        return res_m
